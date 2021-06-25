@@ -19,7 +19,7 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
         if (passportNumber != null)
             this.passportNumber = passportNumber.substring(0,2) + " " + passportNumber.substring(2);
-        this.study = new Study(dateResultString, timeResult, numberReport, numberProduction);
+        this.study = new Study(dateResultString, numberReport, numberProduction);
     }
 
     public int getNumber() {
@@ -28,6 +28,10 @@ public class Person {
 
     public String getPatient() {
         return lastName + " " + firstName;
+    }
+
+    public String getNameFileQrCode () {
+        return number + "." + lastName + "_" + firstName + ".png";
     }
 
     public String getDateOfBirth() {
@@ -49,45 +53,29 @@ public class Person {
         return "No." + study.getNumberReport() + " production No." + study.getNumberProduction();
     }
 
-    public String getResultReadyDate () {
-        return "Result ready date: " + study.getDateResultString();
+    public String getResultReadyDateTime () {
+        return study.getDateTimeResultString();
     }
+    public String getSamplingDateTime () {
+        return study.getDateTimeSamplingString();
+    }
+
 
     public String getResult () {
         if (passportNumber != null) {
             return lastName + " " + firstName + "\n" +
                     "Date of Birth: " + dateOfBirth + ";" + "\n" +
                     "Passport: No " + passportNumber + ";" + "\n" +
-                    hospital  + "\n" +
+                    "Ufa City Clinical Hospital No. 21"  + "\n" +
                     study.toString();
         } else
             return lastName.toUpperCase() + " " + firstName.toUpperCase() + "\n" +
                     "Date of Birth: " + dateOfBirth + ";" + "\n" +
-                    hospital  + "\n" +
+                    "Ufa City Clinical Hospital No. 21"  + "\n" +
                     study.toString();
     }
 
-    public String[] getDataForWriteExcel () {
-        String[] result;
-        int i;
-        if (passportNumber != null) {
-            i = 8;
-            result = new String[i];
-        } else {
-            i = 7;
-            result = new String[i];
-        }
-        result[0] = "" + String.valueOf(number);
-        result[1] = "Report  No." + study.getNumberReport() + " of  the molecular biological study by polymerase chain reaction";
-        result[2] = "Patient: " + lastName + " " + firstName;
-        if (passportNumber != null)
-            result[i-5] = "Passport: " + passportNumber;
-        result[i-4] = "Date of Birth: " + dateOfBirth;
-        result[i-3] = "SARS-CoV2 RNA – " + study.getResult();
-        result[i-2] = "No." + study.getNumberReport() + " production No." + study.getNumberProduction();
-        result[i-1] = "Result ready date: " + study.getDateResultString();
-        return result;
-    }
+
 
     @Override
     public String toString() {
@@ -102,7 +90,7 @@ public class Person {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (getClass() != o.getClass()) return false;
         Person person = (Person) o;
         return lastName.equals(person.lastName) &&
                 firstName.equals(person.firstName) &&
@@ -110,7 +98,7 @@ public class Person {
                 passportNumber.equals(person.passportNumber);
     }
 
-    /** переопределить хэш*/
+    /* переопределить хэш*/
 //    @Override
 //    public int hashCode() {
 //        return Objects.hash(lastName, firstName, dateOfBirth, passportNumber);

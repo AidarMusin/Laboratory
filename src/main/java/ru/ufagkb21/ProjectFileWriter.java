@@ -58,20 +58,23 @@ public class ProjectFileWriter {
 
             try {
                 for (int i = 0; i < persons.size(); i++) {
-                    rowList.get(1).getCell(columnNumber).setCellValue("Ufa City Clinical Hospital No.21 Clinical  laboratory");
-                    rowList.get(2).getCell(columnNumber ).setCellValue(persons.get(i).getReport());
-                    rowList.get(3).getCell(columnNumber + 1).setCellValue("Patient:");
-                    rowList.get(4).getCell(columnNumber + 1).setCellValue(persons.get(i).getPatient());
-                    rowList.get(5).getCell(columnNumber + 1).setCellValue(persons.get(i).getDateOfBirth());
-                    rowList.get(6).getCell(columnNumber + 1).setCellValue(persons.get(i).getPassportNumber());
-                    rowList.get(7).getCell(columnNumber ).setCellValue("Department: Bacteriological laboratory");
-                    rowList.get(8).getCell(columnNumber ).setCellValue("Clinical diagnosis: examination Studies of a smear from the pharynx, nose");
-                    rowList.get(9).getCell(columnNumber ).setCellValue("The result of the study: ");
-                    rowList.get(10).getCell(columnNumber ).setCellValue("COVID-19 PCR testing results");
-                    rowList.get(11).getCell(columnNumber ).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
-                    rowList.get(12).getCell(columnNumber ).setCellValue(persons.get(i).getProductionNumber());
-                    rowList.get(13).getCell(columnNumber).setCellValue(persons.get(i).getResultReadyDate());
-                    rowList.get(15).getCell(columnNumber ).setCellValue("Signature:");
+                    rowList.get(0).getCell(columnNumber).setCellValue("Ufa City Clinical Hospital No.21 Clinical  laboratory");
+                    rowList.get(1).getCell(columnNumber ).setCellValue(persons.get(i).getReport());
+                    rowList.get(2).getCell(columnNumber + 1).setCellValue("Patient:");
+                    rowList.get(3).getCell(columnNumber + 1).setCellValue(persons.get(i).getPatient());
+                    rowList.get(4).getCell(columnNumber + 1).setCellValue(persons.get(i).getDateOfBirth());
+                    rowList.get(5).getCell(columnNumber + 1).setCellValue(persons.get(i).getPassportNumber());
+                    rowList.get(6).getCell(columnNumber ).setCellValue("Department: Bacteriological laboratory");
+                    rowList.get(7).getCell(columnNumber ).setCellValue("Clinical diagnosis: examination Studies of a smear from the pharynx, nose");
+                    rowList.get(8).getCell(columnNumber ).setCellValue("The result of the study: ");
+                    rowList.get(9).getCell(columnNumber ).setCellValue("COVID-19 PCR testing results");
+                    rowList.get(10).getCell(columnNumber ).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
+                    rowList.get(11).getCell(columnNumber ).setCellValue(persons.get(i).getProductionNumber());
+                    rowList.get(12).getCell(columnNumber).setCellValue("Date and time of biomaterial sampling:");
+                    rowList.get(13).getCell(columnNumber).setCellValue(persons.get(i).getSamplingDateTime());
+                    rowList.get(14).getCell(columnNumber).setCellValue("Result ready date and time:");
+                    rowList.get(15).getCell(columnNumber).setCellValue(persons.get(i).getResultReadyDateTime());
+                    rowList.get(17).getCell(columnNumber ).setCellValue("Signature:");
                     i++;
                     if (i == persons.size()) {
                         break;
@@ -88,8 +91,11 @@ public class ProjectFileWriter {
                     rowList.get(29).getCell(columnNumber ).setCellValue("COVID-19 PCR testing results");
                     rowList.get(30).getCell(columnNumber ).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
                     rowList.get(31).getCell(columnNumber ).setCellValue(persons.get(i).getProductionNumber());
-                    rowList.get(32).getCell(columnNumber).setCellValue(persons.get(i).getResultReadyDate());
-                    rowList.get(34).getCell(columnNumber ).setCellValue("Signature:");
+                    rowList.get(32).getCell(columnNumber).setCellValue("Date and time of biomaterial sampling:");
+                    rowList.get(33).getCell(columnNumber).setCellValue(persons.get(i).getSamplingDateTime());
+                    rowList.get(34).getCell(columnNumber).setCellValue("Result ready date and time:");
+                    rowList.get(35).getCell(columnNumber).setCellValue(persons.get(i).getResultReadyDateTime());
+                    rowList.get(37).getCell(columnNumber ).setCellValue("Signature:");
                     columnNumber = columnNumber + 5;
                 }
 
@@ -120,8 +126,8 @@ public class ProjectFileWriter {
 
         try (FileWriter fw = new FileWriter(fileTxt)) {
 
-            for (Person p : persons) {
-                fw.write("# " + counterRedaction + " ----------------------------\n" + p.getResult()  + "\n");
+            for (Person person : persons) {
+                fw.write("# " + counterRedaction + " ----------------------------\n" + person.getResult()  + "\n");
                 counterRedaction++;
             }
             fw.flush();

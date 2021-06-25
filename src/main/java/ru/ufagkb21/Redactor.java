@@ -28,39 +28,41 @@ public class Redactor {
 
         String productionExcelNameFileRead = "CoV.xlsx";
         String productionExcelNameFileWrite = "formQR.xlsx";
-        String productionExcelNameFormCreate = "formQR1.xlsx";
-        String productionTxtNameFileCreate = "QR.txt";;
+        String productionTxtNameFileCreate = "QR.txt";
 
         String testExcelNameFileRead = "testCoV.xlsx";
         String testExcelNameFileWrite = "testFormQR.xlsx";
-        String testExcelNameFormCreate = "testFormQR1.xlsx";
         String testTxtNameFileCreate = "testQR.txt";
 
         /* Production version */
         String nameFileRead = productionExcelNameFileRead;
         String nameFileExcelWrite = productionExcelNameFileWrite;
-        String nameFileCreate = productionExcelNameFormCreate;
         String nameFileTxtWrite = productionTxtNameFileCreate;
 
 //        /* Testing version */
 //        String nameFileRead = testExcelNameFileRead;
 //        String nameFileExcelWrite = testExcelNameFileWrite;
-//        String nameFileCreate = testExcelNameFormCreate;
 //        String nameFileTxtWrite = testTxtNameFileCreate;
 
-
-
         List<Person> persons = new ProjectFileReader(nameFileRead).excelFileRead();
-
 
         for (Person o : persons) {
             cpGreen.println(o.toString());
         }
+
         cpMag.println("-----------------------------------------------------");
 
         ProjectFileWriter projectFileWriter = new ProjectFileWriter(persons, nameFileExcelWrite, nameFileTxtWrite);
-
         projectFileWriter.txtFileWrite();
+
+        for (Person person : persons) {
+            CreateQrCode createQrCode = new CreateQrCode(person);
+            createQrCode.createQr();
+        }
+
         projectFileWriter.excelFileWrite();
+
+
+
     }
 }

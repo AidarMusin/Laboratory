@@ -1,0 +1,52 @@
+# 1 ----------------------------
+MURZINA LARISA
+Date of Birth: 18.03.1965;
+Passport: No 72 2716392;
+Ufa City Clinical Hospital No. 21
+Clinical diagnosis: examination Studies of a smear from the pharynx, nose;
+The result of the study: nCOVID-19 PCR testing results
+SARS-CoV2 RNA - NOT DETECTED;
+No.8652 production No.3
+Date and time of biomaterial sampling:
+26.06.2021 10:00
+Result ready date and time:
+26.06.2021 16:20
+# 2 ----------------------------
+NAFIKOVA LARISA
+Date of Birth: 21.11.1964;
+Passport: No 75 3813965;
+Ufa City Clinical Hospital No. 21
+Clinical diagnosis: examination Studies of a smear from the pharynx, nose;
+The result of the study: nCOVID-19 PCR testing results
+SARS-CoV2 RNA - NOT DETECTED;
+No.8653 production No.3
+Date and time of biomaterial sampling:
+26.06.2021 10:00
+Result ready date and time:
+26.06.2021 16:20
+# 3 ----------------------------
+SEMENOV IVAN
+Date of Birth: 09.10.1982;
+Passport: No 73 1106400;
+Ufa City Clinical Hospital No. 21
+Clinical diagnosis: examination Studies of a smear from the pharynx, nose;
+The result of the study: nCOVID-19 PCR testing results
+SARS-CoV2 RNA - NOT DETECTED;
+No.8655 production No.3
+Date and time of biomaterial sampling:
+25.06.2021 10:00
+Result ready date and time:
+25.06.2021 16:20
+# 4 ----------------------------
+SEMENOVA OLGA
+Date of Birth: 18.07.1974;
+Passport: No 73 2923457;
+Ufa City Clinical Hospital No. 21
+Clinical diagnosis: examination Studies of a smear from the pharynx, nose;
+The result of the study: nCOVID-19 PCR testing results
+SARS-CoV2 RNA - NOT DETECTED;
+No.8656 production No.3
+Date and time of biomaterial sampling:
+25.06.2021 10:00
+Result ready date and time:
+25.06.2021 16:20
