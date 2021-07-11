@@ -1,6 +1,7 @@
 package ru.ufagkb21;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -12,15 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelForm {
-    String fileName;
-    int columnCount;
-    int rowCount = 22;
+    private String fileName = "file.xlsx";
+    private int columnCount;
+    private int rowCount;
+    private int personsSize;
 
 
-    public ExcelForm (String fileName, int columnCount, int rowCount) {
-        this.fileName = fileName;
-        this.columnCount = columnCount;
-        this.rowCount = rowCount;
+    public ExcelForm (int personsSize) {
+
+        if ((personsSize % 2) == 0) {
+            this.columnCount = (personsSize / 2) * 6;
+        } else {
+            this.columnCount = (((personsSize) / 2) + 1) * 6;        }
+        this.personsSize = personsSize;
+        if (personsSize > 1) {
+            rowCount = 40;
+        } else
+            rowCount = 20;
 
     }
 
@@ -37,49 +46,90 @@ public class ExcelForm {
             rowList.add(sheet.createRow(i));
         }
 
-        //зададим ширину столбцов
-        int columnFirsWidth = 1725;
-        int columnSecondWidth = 9670;
-        for (int i = 0; i < columnCount; i = i + 2) {
-            sheet.setColumnWidth(i, columnFirsWidth);
-            sheet.setColumnWidth(i + 1, columnSecondWidth);
-        }
-
         //установим высоту строк
         for (Row row : sheet) {
             row.setHeight((short) 300);
         }
-        rowList.get(0).setHeight((short) 1800);
-        rowList.get(1).setHeight((short) 600);
-        rowList.get(2).setHeight((short) 800);
-        rowList.get(9).setHeight((short) 500);
+        rowList.get(0).setHeight((short) 885);
+        rowList.get(1).setHeight((short) 885);
+        rowList.get(2).setHeight((short) 400);
+        rowList.get(3).setHeight((short) 560);
+        rowList.get(4).setHeight((short) 400);
+        rowList.get(5).setHeight((short) 400);
+        rowList.get(7).setHeight((short) 560);
+        rowList.get(19).setHeight((short) 675);
+        if (personsSize > 1) {
+            rowList.get(21).setHeight((short) 885);
+            rowList.get(22).setHeight((short) 885);
+            rowList.get(23).setHeight((short) 400);
+            rowList.get(24).setHeight((short) 560);
+            rowList.get(25).setHeight((short) 400);
+            rowList.get(26).setHeight((short) 400);
+            rowList.get(28).setHeight((short) 560);
+        }
+
+        //зададим ширину столбцов
+        int columnFirsWidth = 550;    // A
+        int columnSecondWidth = 3913; // B
+        int columnThirdWidth = 4820;  // C
+        int columnFourthWidth = 2303; // D
+        int columnFifthWidth = 1339;  // E
+
+        for (int j = 0; j < personsSize; j ++) {
+            for (int i = 0; i < columnCount; i = i + 10) {
+                sheet.setColumnWidth(i, columnFirsWidth);
+                sheet.setColumnWidth(i + 1, columnSecondWidth);
+                sheet.setColumnWidth(i + 2, columnThirdWidth);
+                sheet.setColumnWidth(i + 3, columnFourthWidth);
+                sheet.setColumnWidth(i + 4, columnFifthWidth);
+                sheet.setColumnWidth(i + 5, columnFifthWidth);
+                sheet.setColumnWidth(i + 6, columnSecondWidth);
+                sheet.setColumnWidth(i + 7, columnThirdWidth);
+                sheet.setColumnWidth(i + 8, columnFourthWidth);
+                sheet.setColumnWidth(i + 9, columnFirsWidth);
+
+                //sheet.addMergedRegion(new CellRangeAddress(1,1,1,2));
+
+            }
+
+        }
+        sheet.addMergedRegion(new CellRangeAddress(0,0,1,3));
+        sheet.addMergedRegion(new CellRangeAddress(1,1,1,2));
+        sheet.addMergedRegion(new CellRangeAddress(2,5,1,1));
+        for (int i = 6; i < 20; i ++ ) {
+            sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 3));
+        }
+
+
+
+
 
         //создаем ячейки  с параметрами по умолчанию
-        for (int j = 0; j < rowList.size(); j ++) {
-            for (int i = 1; i < columnCount; i = i + 2) {
-                createCellMyWb (bookNew, rowList.get(j), i);
-            }
-        }
+//        for (int j = 0; j < rowList.size(); j ++) {
+//            for (int i = 1; i < columnCount; i = i + 2) {
+//                createCellMyWb (bookNew, rowList.get(j), i);
+//            }
+//        }
 
         // создаем форму
-        for (int i = 1; i < columnCount; i = i + 2) {
-            createCellMyWb (bookNew, rowList.get(0),i,true, HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
-
-            CellStyle cellOnlyStyle = bookNew.createCellStyle();
-            cellOnlyStyle.setAlignment(HorizontalAlignment.CENTER);
-            cellOnlyStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-            cellOnlyStyle.setWrapText(true);
-            rowList.get(0).createCell(i-1).setCellStyle(cellOnlyStyle);
-
-            createCellMyWb (bookNew, rowList.get(1),i, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, 11,true).setCellValue("Ufa City Clinical Hospital No.21 Clinical  laboratory");
-            createCellMyWb (bookNew, rowList.get(8),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Department: Bacteriological laboratory");
-            createCellMyWb (bookNew, rowList.get(9),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Clinical diagnosis: examination Studies of a smear from the pharynx, nose");
-            createCellMyWb (bookNew, rowList.get(11),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER,10,true).setCellValue("The result of the study: ");
-            createCellMyWb (bookNew, rowList.get(12),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("COVID-19 PCR testing results");
-            createCellMyWb (bookNew, rowList.get(13),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
-            createCellMyWb (bookNew, rowList.get(19),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Signature: ");
-            createCellMyWb (bookNew, rowList.get(21),i,false, HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
-        }
+//        for (int i = 1; i < columnCount; i = i + 2) {
+//            createCellMyWb (bookNew, rowList.get(0),i,true, HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+//
+//            CellStyle cellOnlyStyle = bookNew.createCellStyle();
+//            cellOnlyStyle.setAlignment(HorizontalAlignment.CENTER);
+//            cellOnlyStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+//            cellOnlyStyle.setWrapText(true);
+//            rowList.get(0).createCell(i-1).setCellStyle(cellOnlyStyle);
+//
+////            createCellMyWb (bookNew, rowList.get(1),i, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, 11,true).setCellValue("Ufa City Clinical Hospital No.21 Clinical  laboratory");
+////            createCellMyWb (bookNew, rowList.get(8),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Department: Bacteriological laboratory");
+////            createCellMyWb (bookNew, rowList.get(9),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Clinical diagnosis: examination Studies of a smear from the pharynx, nose");
+////            createCellMyWb (bookNew, rowList.get(11),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER,10,true).setCellValue("The result of the study: ");
+////            createCellMyWb (bookNew, rowList.get(12),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("COVID-19 PCR testing results");
+////            createCellMyWb (bookNew, rowList.get(13),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
+////            createCellMyWb (bookNew, rowList.get(19),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Signature: ");
+////            createCellMyWb (bookNew, rowList.get(21),i,false, HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+//        }
 
         File file = new File (fileName);
         try (OutputStream fos = new FileOutputStream(file)) {
@@ -194,5 +244,4 @@ public class ExcelForm {
         cell.setCellStyle(cellStyle);
         return cell;
     }
-
 }

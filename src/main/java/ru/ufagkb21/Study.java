@@ -2,9 +2,8 @@ package ru.ufagkb21;
 
 
 public class Study {
-    private String method = "The result of the study: nCOVID-19 PCR testing results\nSARS-CoV2 RNA - NOT DETECTED";
-    private String diagnosis = "Clinical diagnosis: examination Studies of a smear from the pharynx, nose;";
-    private String result = "NOT DETECTED";
+    private String diagnosis = "Clinical diagnosis: examination Studies of a smear from the pharynx, nose;\n";
+    private String method = "The result of the study:\nCOVID-19 PCR testing results\nSARS-CoV2 RNA - NOT DETECTED;\n";
     private static int counter = 4782;
     private int numberReport;
     private int numberProduction;
@@ -27,7 +26,6 @@ public class Study {
         }
     }
 
-
     public String getTimeResult () {
         // Время выдачи результата - заглушка
         switch (numberProduction)  {
@@ -45,10 +43,13 @@ public class Study {
 
     @Override
     public String toString() {
-        return diagnosis + "\n" + method + ";\n" +
+        return diagnosis +
+                method +
                 "No." + numberReport + " production No." + numberProduction +
-                "\nDate and time of biomaterial sampling:\n" + getDateTimeSamplingString()  +
-                "\nResult ready date and time:\n" + getDateTimeResultString();
+                "\nDate and time of biomaterial sampling:\n" +
+                getDateTimeSamplingString()  +
+                "\nResult ready date and time:\n" +
+                getDateTimeResultString();
     }
 
     public String getNumberReport() {
@@ -67,7 +68,4 @@ public class Study {
         return dateResultString + " " + timeSampling;
     }
 
-    public String getResult() {
-        return result;
-    }
 }

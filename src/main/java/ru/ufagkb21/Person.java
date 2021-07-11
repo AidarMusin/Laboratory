@@ -1,6 +1,5 @@
 package ru.ufagkb21;
 
-
 public class Person {
     private int number;
     private String lastName;
@@ -12,7 +11,7 @@ public class Person {
 
 
     /** person all param */
-    public Person (int number, String lastName,String firstName,String dateOfBirth,String passportNumber, String dateResultString, String timeResult, int numberReport,int numberProduction) {
+    public Person (int number, String lastName,String firstName,String dateOfBirth,String passportNumber, String dateResultString, int numberReport,int numberProduction) {
         this.number = number;
         this.lastName = lastName;
         this.firstName = firstName;
