@@ -64,7 +64,7 @@ public class Person {
         if (passportNumber != null) {
             return lastName + " " + firstName + "\n" +
                     "Date of Birth: " + dateOfBirth + ";" + "\n" +
-                    "Passport: No " + passportNumber + ";" + "\n" +
+                    "Passport No: " + passportNumber + ";" + "\n" +
                     "Ufa City Clinical Hospital No. 21"  + "\n" +
                     study.toString();
         } else
