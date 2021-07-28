@@ -25,21 +25,24 @@ public class Redactor {
         ProjectFileWriter projectFileWriter = new ProjectFileWriter(persons, "formQR.xlsx", "QR");
         //projectFileWriter.txtFileWrite(); // - создание текстового варианты QR кода
 
-        // На основе данных массива создаем QR коды
-        for (Person person : persons) {
-            CreateQrCode createQrCode = new CreateQrCode(person);
-            //createQrCode.createQr(); // - запись QR  кода на диск
+//        // На основе данных массива создаем QR коды
+//        for (Person person : persons) {
+//            CreateQrCode createQrCode = new CreateQrCode(person);
+//            //createQrCode.createQr(); // - запись QR  кода на диск
+//
+//            // передаем каждый QR код в соответствующую ячейку
+//            projectFileWriter.exelImagesInsert(createQrCode.createQrFile());
+//        }
+//        // Вызываем метод заполнения в форму и пишем в файл
+//        projectFileWriter.excelFileWrite();
+//
+//        System.out.println(persons.size() + " кол-во столбцов");
 
-            // передаем каждый QR код в соответствующую ячейку
-            projectFileWriter.exelImagesInsert(createQrCode.createQrFile());
-        }
-        // Вызываем метод заполнения в форму и пишем в файл
-        projectFileWriter.excelFileWrite();
+        ExcelForm excelForm = new ExcelForm(persons.size());
+        excelForm.createExcelForm();
 
-        System.out.println(persons.size() + " кол-во столбцов");
         ColorPrint.cpMag.println("-----------------------------------------------------");
 
-//        ExcelForm excelForm = new ExcelForm(persons.size());
-//        excelForm.createExcelForm();
+
     }
 }
