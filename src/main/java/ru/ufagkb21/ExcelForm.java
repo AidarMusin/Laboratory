@@ -24,7 +24,8 @@ public class ExcelForm {
         if ((personsSize % 2) == 0) {
             this.columnCount = (personsSize / 2) * 5;
         } else {
-            this.columnCount = (((personsSize) / 2) + 1) * 5;        }
+            this.columnCount = (((personsSize) / 2) + 1) * 5;
+        }
 
         this.personsSize = personsSize;
 
@@ -70,55 +71,33 @@ public class ExcelForm {
         }
 
         //зададим ширину столбцов
-        int columnArrWid [] = new int[5];
+        int columnArrWid [] = new int[10];
         columnArrWid[0] = 550;  // A
         columnArrWid[1] = 3913; // B
         columnArrWid[2] = 4820; // C
         columnArrWid[3] = 2303; // D
         columnArrWid[4] = 1339; // E
+        columnArrWid[5] = 1339; // F
+        columnArrWid[6] = 3913; // G
+        columnArrWid[7] = 4820; // H
+        columnArrWid[8] = 2303; // I
+        columnArrWid[9] = 550;  // J
 
-        // для одного клиента
-        if (personsSize == 1) {
+        for (int k = 0; k < columnCount; k ++) {
             for (int i = 0; i < columnArrWid.length; i++) {
-                sheet.setColumnWidth(i, columnArrWid[i]);
-            }
-
-        } else {
-            for (int i = 0; i < columnCount; i = i + 10) {
-                for (int k = 0; k < 10; k++) {
-                    int l = k;
-                    switch (k) {
-                        case 5:
-                            l = 4;
-                            break;
-                        case 6:
-                            l = 1;
-                            break;
-                        case 7:
-                            l = 2;
-                            break;
-                        case 8:
-                            l = 3;
-                            break;
-                        case 9:
-                            l = 0;
-                            break;
-                    }
-                    sheet.setColumnWidth(i + k, columnArrWid[l]);
+                sheet.setColumnWidth(k, columnArrWid[i]);
+                k++;
+                if (k == columnCount) {
+                    break;
                 }
             }
+            k--;
         }
+
+        // объеденяем ячейки
         int rowX = 0;
         int columnY = 0;
         for (int numberPerson = 0; numberPerson < personsSize; numberPerson ++) {
-            if ((numberPerson % 2) != 0) {
-                rowX = 0;
-                columnY = numberPerson * 5;
-            }
-
-            if ((numberPerson % 2) == 0) {
-                rowX = 20;
-            }
 
             sheet.addMergedRegion(new CellRangeAddress(0 + rowX, 0 + rowX, 1 + columnY, 3 + columnY));
             sheet.addMergedRegion(new CellRangeAddress(1 + rowX, 1 + rowX, 1 + columnY, 2 + columnY));
@@ -130,17 +109,24 @@ public class ExcelForm {
             for (int i = 6; i < 19; i++) {
                 sheet.addMergedRegion(new CellRangeAddress(i + rowX, i + rowX, 1 + columnY, 3 + columnY));
             }
+
+            if ((numberPerson % 2) != 0) {
+                rowX = 0;
+                columnY = columnY + 5;
+            }
+
+            if ((numberPerson % 2) == 0) {
+                rowX = 20;
+            }
         }
 
 
-
-
         //создаем ячейки  с параметрами по умолчанию
-//        for (int j = 0; j < rowList.size(); j ++) {
-//            for (int i = 1; i < columnCount; i = i + 2) {
-//                createCellMyWb (bookNew, rowList.get(j), i);
-//            }
-//        }
+        for (int j = 0; j < rowList.size(); j ++) {
+            for (int i = 1; i < columnCount; i = i + 2) {
+                createCellMyWb (bookNew, rowList.get(j), i);
+            }
+        }
 
         // создаем форму
 //        for (int i = 1; i < columnCount; i = i + 2) {
@@ -185,13 +171,13 @@ public class ExcelForm {
         cellStyle.setAlignment(halign);
         cellStyle.setVerticalAlignment(valign);
         if (topLineBottom) {
-            cellStyle.setBorderTop(BorderStyle.THIN);
+            cellStyle.setBorderLeft(BorderStyle.THIN);
             cellStyle.setTopBorderColor(IndexedColors.AQUA.getIndex());
         } else {
             cellStyle.setBorderBottom(BorderStyle.THIN);
             cellStyle.setBottomBorderColor(IndexedColors.AQUA.getIndex());
         }
-        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setLeftBorderColor(IndexedColors.AQUA.getIndex());
         cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setRightBorderColor(IndexedColors.AQUA.getIndex());
