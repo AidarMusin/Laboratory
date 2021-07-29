@@ -21,10 +21,15 @@ public class Redactor {
         for (Person o : persons) {
             ColorPrint.cpGreen.println(o.toString());
         }
-        // Создаем объект FileWriter имеющего методы для записи в форму formQR.xlsx и сохранения под именем  "QR + сегодняшняя дата"
-        ProjectFileWriter projectFileWriter = new ProjectFileWriter(persons, "formQR.xlsx", "QR");
-        //projectFileWriter.txtFileWrite(); // - создание текстового варианты QR кода
+        System.out.println(persons.size() + " кол-во столбцов");
 
+        ExcelForm excelForm = new ExcelForm(persons.size());
+        excelForm.createExcelForm();
+
+//        // Создаем объект FileWriter имеющего методы для записи в форму formQR.xlsx и сохранения под именем  "QR + сегодняшняя дата"
+//        ProjectFileWriter projectFileWriter = new ProjectFileWriter(persons, "formQR.xlsx", "QR");
+//        //projectFileWriter.txtFileWrite(); // - создание текстового варианты QR кода
+//
 //        // На основе данных массива создаем QR коды
 //        for (Person person : persons) {
 //            CreateQrCode createQrCode = new CreateQrCode(person);
@@ -35,11 +40,8 @@ public class Redactor {
 //        }
 //        // Вызываем метод заполнения в форму и пишем в файл
 //        projectFileWriter.excelFileWrite();
-//
-//        System.out.println(persons.size() + " кол-во столбцов");
 
-        ExcelForm excelForm = new ExcelForm(persons.size());
-        excelForm.createExcelForm();
+
 
         ColorPrint.cpMag.println("-----------------------------------------------------");
 

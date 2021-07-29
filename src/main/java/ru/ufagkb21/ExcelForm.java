@@ -22,17 +22,18 @@ public class ExcelForm {
     public ExcelForm (int personsSize) {
 
         if ((personsSize % 2) == 0) {
-            this.columnCount = (personsSize / 2) * 6;
+            this.columnCount = (personsSize / 2) * 5;
         } else {
-            this.columnCount = (((personsSize) / 2) + 1) * 6;        }
+            this.columnCount = (((personsSize) / 2) + 1) * 5;        }
+
         this.personsSize = personsSize;
+
         if (personsSize > 1) {
             rowCount = 40;
         } else
             rowCount = 20;
         ColorPrint.cpBlue.println("Количество стобцов = " + columnCount);
     }
-
 
     /** Создаем форму EXCEL с параметрами - Входщие данные: имя файла и кол-во колонок*/
     public File createExcelForm () {
@@ -69,97 +70,68 @@ public class ExcelForm {
         }
 
         //зададим ширину столбцов
-        int columnFirsWidth = 550;    // A
-        int columnSecondWidth = 3913; // B
-        int columnThirdWidth = 4820;  // C
-        int columnFourthWidth = 2303; // D
-        int columnFifthWidth = 1339;  // E
+        int columnArrWid [] = new int[5];
+        columnArrWid[0] = 550;  // A
+        columnArrWid[1] = 3913; // B
+        columnArrWid[2] = 4820; // C
+        columnArrWid[3] = 2303; // D
+        columnArrWid[4] = 1339; // E
 
-        int columnArrayWidth [] = new int[5];
-        columnArrayWidth[0] = 550;  // A
-        columnArrayWidth[1] = 3913; // B
-        columnArrayWidth[2] = 4820; // C
-        columnArrayWidth[3] = 2303; // D
-        columnArrayWidth[4] = 1339; // E
-
-
+        // для одного клиента
         if (personsSize == 1) {
-            for (int i = 0; i < columnArrayWidth.length; i++) {
-                sheet.setColumnWidth(i, columnArrayWidth[i]);
-            }
-
-            sheet.addMergedRegion(new CellRangeAddress(0,0,1,3));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,1,2));
-            sheet.addMergedRegion(new CellRangeAddress(2,5,1,1));
-            sheet.addMergedRegion(new CellRangeAddress(2,2,2,3));
-            sheet.addMergedRegion(new CellRangeAddress(3,3,2,3));
-            sheet.addMergedRegion(new CellRangeAddress(4,4,2,3));
-            sheet.addMergedRegion(new CellRangeAddress(5,5,2,3));
-
-            for (int i = 6; i < 19; i ++ ) {
-                sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 3));
+            for (int i = 0; i < columnArrWid.length; i++) {
+                sheet.setColumnWidth(i, columnArrWid[i]);
             }
 
         } else {
-            for (int j = 0; j < personsSize; j = j + 4) {
-                for (int i = 0; i < columnCount; i = i + 10) {
-                    for (int k = 0; k < 10; k ++) {
-                        int l = k;
-                        switch (k) {
-                            case 5 :
-                                l = 4;
-                                break;
-                            case 6 :
-                                l = 1;
-                                break;
-                            case 7 :
-                                l = 2;
-                                break;
-                            case 8 :
-                                l = 3;
-                                break;
-                            case 9 :
-                                l = 0;
-                                break;
-                        }
-                        sheet.setColumnWidth(i + k, columnArrayWidth[l]);
+            for (int i = 0; i < columnCount; i = i + 10) {
+                for (int k = 0; k < 10; k++) {
+                    int l = k;
+                    switch (k) {
+                        case 5:
+                            l = 4;
+                            break;
+                        case 6:
+                            l = 1;
+                            break;
+                        case 7:
+                            l = 2;
+                            break;
+                        case 8:
+                            l = 3;
+                            break;
+                        case 9:
+                            l = 0;
+                            break;
                     }
+                    sheet.setColumnWidth(i + k, columnArrWid[l]);
                 }
-//                for (int i = 0; i < columnCount; i = i + 10) {
-//                    sheet.setColumnWidth(i, columnFirsWidth);
-//                    sheet.setColumnWidth(i + 1, columnSecondWidth);
-//                    sheet.setColumnWidth(i + 2, columnThirdWidth);
-//                    sheet.setColumnWidth(i + 3, columnFourthWidth);
-//                    sheet.setColumnWidth(i + 4, columnFifthWidth);
-//                    sheet.setColumnWidth(i + 5, columnFifthWidth);
-//                    sheet.setColumnWidth(i + 6, columnSecondWidth);
-//                    sheet.setColumnWidth(i + 7, columnThirdWidth);
-//                    sheet.setColumnWidth(i + 8, columnFourthWidth);
-//                    sheet.setColumnWidth(i + 9, columnFirsWidth);
-//
-//                    //sheet.addMergedRegion(new CellRangeAddress(1,1,1,2));
-//                }
             }
-
-            sheet.addMergedRegion(new CellRangeAddress(0,0,1,3));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,1,2));
-            sheet.addMergedRegion(new CellRangeAddress(2,5,1,1));
-            sheet.addMergedRegion(new CellRangeAddress(2,2,2,3));
-            sheet.addMergedRegion(new CellRangeAddress(3,3,2,3));
-            sheet.addMergedRegion(new CellRangeAddress(4,4,2,3));
-            sheet.addMergedRegion(new CellRangeAddress(5,5,2,3));
-
-            for (int i = 6; i < 19; i ++ ) {
-                sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 3));
-            }
-//            sheet.addMergedRegion(new CellRangeAddress(20,200,1,3));
-//            sheet.addMergedRegion(new CellRangeAddress(21,21,1,2));
-//            sheet.addMergedRegion(new CellRangeAddress(22,25,1,1));
-//
-//            for (int i = 26; i < 39; i ++ ) {
-//                sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 3));
-//            }
         }
+        int rowX = 0;
+        int columnY = 0;
+        for (int numberPerson = 0; numberPerson < personsSize; numberPerson ++) {
+            if ((numberPerson % 2) != 0) {
+                rowX = 0;
+                columnY = numberPerson * 5;
+            }
+
+            if ((numberPerson % 2) == 0) {
+                rowX = 20;
+            }
+
+            sheet.addMergedRegion(new CellRangeAddress(0 + rowX, 0 + rowX, 1 + columnY, 3 + columnY));
+            sheet.addMergedRegion(new CellRangeAddress(1 + rowX, 1 + rowX, 1 + columnY, 2 + columnY));
+            sheet.addMergedRegion(new CellRangeAddress(2 + rowX, 5 + rowX, 1 + columnY, 1 + columnY));
+            sheet.addMergedRegion(new CellRangeAddress(2 + rowX, 2 + rowX, 2 + columnY, 3 + columnY));
+            sheet.addMergedRegion(new CellRangeAddress(3 + rowX, 3 + rowX, 2 + columnY, 3 + columnY));
+            sheet.addMergedRegion(new CellRangeAddress(4 + rowX, 4 + rowX, 2 + columnY, 3 + columnY));
+            sheet.addMergedRegion(new CellRangeAddress(5 + rowX, 5 + rowX, 2 + columnY, 3 + columnY));
+            for (int i = 6; i < 19; i++) {
+                sheet.addMergedRegion(new CellRangeAddress(i + rowX, i + rowX, 1 + columnY, 3 + columnY));
+            }
+        }
+
 
 
 
