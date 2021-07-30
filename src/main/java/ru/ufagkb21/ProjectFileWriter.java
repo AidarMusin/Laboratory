@@ -60,7 +60,6 @@ public class ProjectFileWriter {
                 anchorLogo.setCol2((code.getCoordinates(2) + 2 )); //Column E 4
                 anchorLogo.setRow2((code.getCoordinates(3) - 4)); //Row 3 2
 
-
                 Picture pict = drawing.createPicture(anchor, pictureIdx);  //Creates a picture
                 Picture pictLogo = drawingLogo.createPicture(anchorLogo, pictureIdxLogo);  //Creates a picture
 
@@ -71,7 +70,7 @@ public class ProjectFileWriter {
             workbook.write(fos);
             fos.close();
         } catch (IOException ioException) {
-            ColorPrint.cpRed.println("Ошибка чтения файла " + fileExel);
+            ColorPrint.cpRed.println("Ошибка чтения файла " + fileExel + " Возможно объем данных слишком велик.");
         }
         ColorPrint.cpYellow.println("QR коды добавлены в Excel файл c именем " + fileExel.getName());
     }
@@ -90,9 +89,8 @@ public class ProjectFileWriter {
             }
             ColorPrint.cpCyan.println("Количество людей в списке на исследование - " + persons.size());
 
-            int columnNumber = 1;
-
             // Укладываем в соответствующие ячейки данные
+            int columnNumber = 1;
             try {
                 for (int i = 0; i < persons.size(); i++) {
                     rowList.get(0).getCell(columnNumber).setCellValue("Ufa City Clinical Hospital No.21 Clinical  laboratory");
@@ -141,8 +139,6 @@ public class ProjectFileWriter {
             }
             fileInputStream.close();
 
-
-
             FileOutputStream fos = new FileOutputStream(fileNameWriteExcel);
             workbook.write(fos);
             fos.close();
@@ -153,11 +149,10 @@ public class ProjectFileWriter {
         } finally {
             ColorPrint.cpYellow.println("Файл " + fileNameWriteExcel + " заполнен данными");
         }
-
     }
 
 
-    /** write in *.txt file - нужно для QR кода */
+    /** write in *.txt file - текстоый вариант QR кода */
     public void txtFileWrite () {
         try (FileWriter fw = new FileWriter(fileTxt)) {
             for (Person person : persons) {

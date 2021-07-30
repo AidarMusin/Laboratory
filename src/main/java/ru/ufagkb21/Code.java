@@ -15,16 +15,8 @@ public class Code {
         this.coordinates = coordinates;
     }
 
-    public String getFileImgName () {
-        return fileImgName;
-    }
-
     public int getCoordinates (int numberIndex) {
         return coordinates[numberIndex];
-    }
-
-    public int getNumberN () {
-        return numberN;
     }
 
     public File getFileQrCode() {

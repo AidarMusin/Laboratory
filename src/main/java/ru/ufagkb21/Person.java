@@ -96,11 +96,4 @@ public class Person {
                 dateOfBirth.equals(person.dateOfBirth) &&
                 passportNumber.equals(person.passportNumber);
     }
-
-    /* переопределить хэш*/
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(lastName, firstName, dateOfBirth, passportNumber);
-//    }
-
 }

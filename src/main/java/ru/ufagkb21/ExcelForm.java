@@ -20,15 +20,12 @@ public class ExcelForm {
 
 
     public ExcelForm (int personsSize) {
-
         if ((personsSize % 2) == 0) {
             this.columnCount = (personsSize / 2) * 5;
         } else {
             this.columnCount = (((personsSize) / 2) + 1) * 5;
         }
-
         this.personsSize = personsSize;
-
         if (personsSize > 1) {
             rowCount = 40;
         } else
@@ -120,34 +117,33 @@ public class ExcelForm {
             }
         }
 
-
         //создаем ячейки  с параметрами по умолчанию
         for (int j = 0; j < rowList.size(); j ++) {
-            for (int i = 1; i < columnCount; i = i + 2) {
+            for (int i = 0; i < columnCount; i ++) {
                 createCellMyWb (bookNew, rowList.get(j), i);
             }
         }
 
         // создаем форму
-//        for (int i = 1; i < columnCount; i = i + 2) {
-//            createCellMyWb (bookNew, rowList.get(0),i,true, HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
-//
-//            CellStyle cellOnlyStyle = bookNew.createCellStyle();
-//            cellOnlyStyle.setAlignment(HorizontalAlignment.CENTER);
-//            cellOnlyStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-//            cellOnlyStyle.setWrapText(true);
-//            rowList.get(0).createCell(i-1).setCellStyle(cellOnlyStyle);
-//
-////            createCellMyWb (bookNew, rowList.get(1),i, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, 11,true).setCellValue("Ufa City Clinical Hospital No.21 Clinical  laboratory");
-////            createCellMyWb (bookNew, rowList.get(8),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Department: Bacteriological laboratory");
-////            createCellMyWb (bookNew, rowList.get(9),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Clinical diagnosis: examination Studies of a smear from the pharynx, nose");
-////            createCellMyWb (bookNew, rowList.get(11),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER,10,true).setCellValue("The result of the study: ");
-////            createCellMyWb (bookNew, rowList.get(12),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("COVID-19 PCR testing results");
-////            createCellMyWb (bookNew, rowList.get(13),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
-////            createCellMyWb (bookNew, rowList.get(19),i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER).setCellValue("Signature: ");
-////            createCellMyWb (bookNew, rowList.get(21),i,false, HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
-//        }
+        int r = 0;
+        for (int n = 0; n < 2; n ++) {
 
+            for (int i = 0; i < columnCount; i++) {
+                createCellMyWb(bookNew, rowList.get(0 + r), i, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, 12, "Verdana", true);
+                createCellMyWb(bookNew, rowList.get(1 + r), i, 11, "Verdana", false);
+                createCellMyWb(bookNew, rowList.get(2 + r), i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER, 10, "Verdana", true);
+                createCellMyWb(bookNew, rowList.get(3 + r), i, HorizontalAlignment.LEFT, VerticalAlignment.TOP, 10, "Verdana", true);
+                createCellMyWb(bookNew, rowList.get(4 + r), i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER, 10, "Verdana", true);
+                createCellMyWb(bookNew, rowList.get(5 + r), i, HorizontalAlignment.LEFT, VerticalAlignment.CENTER, 10, "Verdana", true);
+                createCellMyWb(bookNew, rowList.get(7 + r), i, 10, "Calibri", false);
+                createCellMyWb(bookNew, rowList.get(8 + r), i, 12, "Calibri", true);
+                createCellMyWb(bookNew, rowList.get(12 + r), i, 12, "Calibri", true);
+                createCellMyWb(bookNew, rowList.get(14 + r), i, 12, "Calibri", true);
+            }
+            r = 20;
+        }
+
+        // пишем в файл
         File file = new File (fileName);
         try (OutputStream fos = new FileOutputStream(file)) {
             CellReference cellRef = new CellReference(rowCount, columnCount);
@@ -164,26 +160,6 @@ public class ExcelForm {
     }
 
 
-    /** create a new cell with style  - верхняя и нижняя ячейка */
-    private static Cell createCellMyWb(Workbook wb, Row row, int column, boolean topLineBottom, HorizontalAlignment halign, VerticalAlignment valign) {
-        Cell cell = row.createCell(column);
-        CellStyle cellStyle = wb.createCellStyle();
-        cellStyle.setAlignment(halign);
-        cellStyle.setVerticalAlignment(valign);
-        if (topLineBottom) {
-            cellStyle.setBorderLeft(BorderStyle.THIN);
-            cellStyle.setTopBorderColor(IndexedColors.AQUA.getIndex());
-        } else {
-            cellStyle.setBorderBottom(BorderStyle.THIN);
-            cellStyle.setBottomBorderColor(IndexedColors.AQUA.getIndex());
-        }
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setLeftBorderColor(IndexedColors.AQUA.getIndex());
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setRightBorderColor(IndexedColors.AQUA.getIndex());
-        cell.setCellStyle(cellStyle);
-        return cell;
-    }
     /** create a new cell with style  - ячейки со всеми параметрами */
     private static Cell createCellMyWb(Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign, int fontSize, String fontName, boolean boldFontWrap) {
         Cell cell = row.createCell(column);
@@ -194,54 +170,29 @@ public class ExcelForm {
         font.setFontHeightInPoints((short) fontSize);
         font.setFontName(fontName);
         font.setBold(boldFontWrap);
-        cellStyle.setBorderLeft(BorderStyle.THIN);
-        cellStyle.setLeftBorderColor(IndexedColors.AQUA.getIndex());
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setRightBorderColor(IndexedColors.AQUA.getIndex());
         cellStyle.setWrapText(boldFontWrap);
         cellStyle.setFont(font);
         cell.setCellStyle(cellStyle);
         return cell;
     }
+
     /** create a new cell with style  - ячейки со всеми параметрами, шрифт по умолчанию Verdana */
-    private static Cell createCellMyWb(Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign, int fontSize, boolean boldFontWrap) {
+    private static Cell createCellMyWb(Workbook wb, Row row, int column, int fontSize,  String fontName, boolean boldFontWrap) {
         Cell cell = row.createCell(column);
         CellStyle cellStyle = wb.createCellStyle();
-        cellStyle.setAlignment(halign);
-        cellStyle.setVerticalAlignment(valign);
+        cellStyle.setAlignment(HorizontalAlignment.LEFT);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         Font font = wb.createFont();
         font.setFontHeightInPoints((short) fontSize);
-        font.setFontName("Verdana");
+        font.setFontName(fontName);
         font.setBold(boldFontWrap);
-        cellStyle.setBorderLeft(BorderStyle.THIN);
-        cellStyle.setLeftBorderColor(IndexedColors.AQUA.getIndex());
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setRightBorderColor(IndexedColors.AQUA.getIndex());
-        cellStyle.setWrapText(boldFontWrap);
-        cellStyle.setFont(font);
-        cell.setCellStyle(cellStyle);
-        return cell;
-    }
-    /** create a new cell with style  - шрифт: Verdana, 10, не жирный, в яччейке с переносом  */
-    private static Cell createCellMyWb(Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign) {
-        Cell cell = row.createCell(column);
-        CellStyle cellStyle = wb.createCellStyle();
-        cellStyle.setAlignment(halign);
-        cellStyle.setVerticalAlignment(valign);
-        Font font = wb.createFont();
-        font.setFontHeightInPoints((short) 10);
-        font.setFontName("Verdana");
-        font.setBold(false);
         cellStyle.setWrapText(true);
-        cellStyle.setBorderLeft(BorderStyle.THIN);
-        cellStyle.setLeftBorderColor(IndexedColors.AQUA.getIndex()); //AQUA.getIndex());
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setRightBorderColor(IndexedColors.AQUA.getIndex());//.AQUA.getIndex());
         cellStyle.setFont(font);
         cell.setCellStyle(cellStyle);
         return cell;
     }
-    /** create a new cell with style  - шрифт: Verdana, 10, не жирный, в яччейке с переносом; центрования: слева, горизонт: центр */
+
+    /** create a new cell with style  - шрифт: Verdana, 10, не жирный, в яччейке с переносом; центрования: слева, горизонт: сверху */
     private static Cell createCellMyWb(Workbook wb, Row row, int column) {
         Cell cell = row.createCell(column);
         CellStyle cellStyle = wb.createCellStyle();
@@ -249,14 +200,10 @@ public class ExcelForm {
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         cell.setCellStyle(cellStyle);
         Font font = wb.createFont();
-        font.setFontHeightInPoints((short) 10);
-        font.setFontName("Verdana");
+        font.setFontHeightInPoints((short) 12);
+        font.setFontName("Calibri");
         font.setBold(false);
         cellStyle.setWrapText(true);
-        cellStyle.setBorderLeft(BorderStyle.THIN);
-        cellStyle.setLeftBorderColor(IndexedColors.AQUA.getIndex());
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setRightBorderColor(IndexedColors.AQUA.getIndex());
         cellStyle.setFont(font);
         cell.setCellStyle(cellStyle);
         return cell;
