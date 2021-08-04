@@ -141,6 +141,9 @@ public class ExcelForm {
                 createCellMyWb(bookNew, rowList.get(14 + r), i, 12, "Calibri", true);
             }
             r = 20;
+            if (personsSize == 1) {
+                break;
+            }
         }
 
         // пишем в файл
