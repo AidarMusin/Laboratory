@@ -140,9 +140,7 @@ public class ExcelForm {
                 createCellMyWb(bookNew, rowList.get(12 + r), i, 12, "Calibri", true);
                 createCellMyWb(bookNew, rowList.get(14 + r), i, 12, "Calibri", true);
             }
-            if (columnCount <= 5) {
-                break;
-            }
+
             r = 20;
             if (personsSize == 1) {
                 break;
