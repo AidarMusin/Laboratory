@@ -74,6 +74,25 @@ public class Person {
                     study.toString();
     }
 
+    public String getOnlyDateOfBirth () {
+        return dateOfBirth;
+    }
+    public String getOnlyPasNumber () {
+        return passportNumber;
+    }
+
+    public String getOnlyReportNumber () {
+        return study.getNumberReport();
+    }
+
+    public String getOnlyProdNumber () {
+        return study.getNumberProduction();
+    }
+
+    public String getOnlyDateResult () {
+        return study.getDateTimeResultString();
+    }
+
 
 
     @Override
