@@ -3,13 +3,19 @@ package jdbc.connect;
 import ru.ufagkb21.Person;
 
 import java.sql.*;
+import java.util.logging.Logger;
+
+import static jdbc.connect.JdbcSetings.*;
 
 public class JDBCconnetion {
-    private String userName = "root";
-    private String password = "#)1180Aidar";
-    private String connectionUrl = "jdbc:mysql://localhost:3306/qrcode";
+
+    private static final Logger LOGGER = Logger.getLogger( JDBCconnetion.class.getName() );
 
 
+
+//    public void findPeople (String ) {
+//
+//    }
 //            ResultSet resultSet = statement.executeQuery("SELECT * FROM Mh_users");
 //            while (resultSet.next()) {
 //                System.out.print(resultSet.getInt(1) + " ");
@@ -23,25 +29,17 @@ public class JDBCconnetion {
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (Connection connection = DriverManager.getConnection(connectionUrl, userName, password);
              Statement statement = connection.createStatement()) {
-            System.out.println("have a connect");
-            System.out.println(person.getPatient() );
-            System.out.println(person.getOnlyDateOfBirth());
-            System.out.println(person.getOnlyPasNumber());
-            System.out.println(person.getOnlyDateResult());
-            System.out.println(person.getOnlyReportNumber());
-            System.out.println(person.getOnlyProdNumber());
 
             statement.executeUpdate("INSERT INTO savepeople (fullName, dateBirth, passport, dateResult, numberReport, numberProduction) VALUES ('"
                     + person.getPatient() + "','" + person.getOnlyDateOfBirth() + "','"
                     + person.getOnlyPasNumber() + "','" + person.getOnlyDateResult() + "','"
                     + person.getOnlyReportNumber() + "','" + person.getOnlyProdNumber() + "');");
 
-
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
 
     public void createTable (String nameTable) throws ClassNotFoundException {
         try (Connection connection = DriverManager.getConnection(connectionUrl, userName, password);
@@ -57,9 +55,8 @@ public class JDBCconnetion {
                     "number_report INT NOT NULL," +
                     "number_production MEDIUMINT NOT NULL," +
                     "constraint savepeople_pk PRIMARY KEY (id));");
-               System.out.println("we're connected");
-            System.out.println("Создана база данных с именем " + nameTable);
 
+            System.out.println("Создана база данных с именем " + nameTable);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
