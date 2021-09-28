@@ -9,6 +9,7 @@ public class Redactor {
     private static int counterRedaction = 1;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        String tableName = "savepeople";
 
         ColorPrint.cpMag.println("-----------------------------------------------------");
 
@@ -16,10 +17,11 @@ public class Redactor {
         List<Person> persons  = new ProjectFileReader("CoV.xlsx").excelFileRead();
         JDBCconnetion jdbCconnetion = new JDBCconnetion();
 
+
         // Создаем динамический массив из считанных данных
         for (Person person : persons) {
             ColorPrint.cpGreen.println(person.toString());
-            jdbCconnetion.appendPeople(person);
+            jdbCconnetion.appendPeople(person, tableName);
         }
 
 
