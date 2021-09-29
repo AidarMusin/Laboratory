@@ -10,25 +10,31 @@ public class Redactor {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         String tableName = "savepeople";
-
-        ColorPrint.cpMag.println("-----------------------------------------------------");
+        JDBCconnetion jdbCconnetion = new JDBCconnetion();
+        ColorPrint.cpMag.println("--------------------------BEGIN---------------------------");
 
         // читаем Excel файл CoV.xlsx
-        List<Person> persons  = new ProjectFileReader("CoV.xlsx").excelFileRead();
-        JDBCconnetion jdbCconnetion = new JDBCconnetion();
-
-
         // Создаем динамический массив из считанных данных
+        List<Person> persons  = new ProjectFileReader("CoV.xlsx").excelFileRead();
+
+//        ColorPrint.cpYellow.println("-------------------КОРРЕКТИРОВКА-------------------");
+//        // корректировка даты результата
+//        List<String> findPerson = new ArrayList<>();
+//        findPerson.add("KONKOVA GUZEL");
+//        findPerson.add("KONKOV ANATOLII");
+//        String dateNew = "04.10.2021";
+//        List<Person> persons = jdbCconnetion.findPeople(findPerson, dateNew);
+//        for (Person per : persons) {
+//            System.out.println(per.getNumber() + " # " + per.getPatient() + " @ " + per.getDateOfBirth() + " @ " + per.getOnlyPasNumber() + " @ " + per.getOnlyDateResult());
+//        }
+//        ColorPrint.cpYellow.println("-------------------------КОРРЕКТИРОВКА---------------");
+
         for (Person person : persons) {
             ColorPrint.cpGreen.println(person.toString());
             jdbCconnetion.appendPeople(person, tableName);
         }
-
-
-
-        //jdbCconnetion.createTable("test");
-
         System.out.println(persons.size() + " кол-во персон на исследование");
+
         // формируем форму
         ExcelForm excelForm = new ExcelForm(persons.size());
         excelForm.createExcelForm();
@@ -49,7 +55,17 @@ public class Redactor {
 
         // Вызываем метод заполнения в форму и пишем в файл
         projectFileWriter.excelFileWrite();
+        ColorPrint.cpMag.println("------------------------END-----------------------------");
 
-        ColorPrint.cpMag.println("-----------------------------------------------------");
+
+
+
+//        ColorPrint.cpRed.println("----------------DELETE---------------");
+//        ArrayList<Integer> arrayNumberRow = new ArrayList<>();
+//        arrayNumberRow.add(21);
+//        arrayNumberRow.add(22);
+//        jdbCconnetion.deleteRow(arrayNumberRow);
+//        ColorPrint.cpRed.println("----------------DELETE---------------");
+
     }
 }
