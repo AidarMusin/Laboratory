@@ -36,18 +36,22 @@ public class ProjectFileReader {
             workbook = new XSSFWorkbook(fileInputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
+
             // Проходим по всем строкам с листа sheet
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
 
                 // порядковый номер - N (getIndexColumn(sheet, "N") - поиск индекса столбца
                 Cell cellInt = sheet.getRow(i).getCell(getIndexColumn(sheet, "N"));
                 number = (int)cellInt.getNumericCellValue();
+                System.out.println("Пациент за номером: " + number);
 
                 // Фамилия клиента - lastname
                 lastName = getCellText(sheet.getRow(i).getCell(getIndexColumn(sheet, "lastname"))).toUpperCase().trim();
+                System.out.println("Фамилия клиента: " + lastName);
 
                 // Имя клиента - name
                 firstName = getCellText(sheet.getRow(i).getCell(getIndexColumn(sheet, "name"))).toUpperCase().trim();
+                System.out.println("зовут клиента: " + firstName);
 
                 // Дата рождения - dateBirth
                 String[]  dateOfBirthSplit = getCellText(sheet.getRow(i).getCell(getIndexColumn(sheet, "dateBirth"))).split("\\D");
@@ -60,6 +64,7 @@ public class ProjectFileReader {
                 else if ((dateOfBirthSplit[2].length() == 2) && (Integer.parseInt(dateOfBirthSplit[2]) < 21))
                     dateOfBirthSplit[2] = "20" + dateOfBirthSplit[2];
                 dateOfBirth = dateOfBirthSplit[0] + "." + dateOfBirthSplit[1] + "." + dateOfBirthSplit[2];
+                System.out.println("Данные о дате рождения считаны - " + dateOfBirth);
 
                 // Номер паспорта - passport
                 passportNumber = getCellText(sheet.getRow(i).getCell(getIndexColumn(sheet, "passport")));
@@ -67,6 +72,8 @@ public class ProjectFileReader {
                     ColorPrint.cpRed.println("У пациента " + lastName + " Проверте данные паспорта, количество цифр не соответсвуют стандарту загранпаспорта"); //в log
                     passportNumber = null;
                 }
+                System.out.println("Данные о паспорте - " + passportNumber);
+
 
                 // дата исследования - dateResult
                 String[] dateResultSplitTest = getCellText(sheet.getRow(i).getCell(getIndexColumn(sheet, "dateResult"))).split("\\D+");
@@ -112,7 +119,7 @@ public class ProjectFileReader {
                 } else {
                     numberProduction = Integer.parseInt(getCellText(sheet.getRow(i).getCell(getIndexColumn(sheet, "numberProduction"))));
                 }
-                ColorPrint.cpRed.println(numberReport + " номер пробы");
+                ColorPrint.cpRed.println("Дата исследования: " + dateResult + " # Номер пробы: " + numberReport  + " # Номер постановки: " + numberProduction);
 
                 // Создаем список людей
                 persons.add(new Person(number, lastName, firstName, dateOfBirth, passportNumber, dateResult, numberReport, numberProduction));
