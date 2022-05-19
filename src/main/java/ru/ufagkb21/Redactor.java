@@ -1,6 +1,6 @@
 package ru.ufagkb21;
 
-import jdbc.connect.JDBCconnetion;
+import jdbc.connect.JDBConnection;
 
 import java.io.*;
 import java.util.*;
@@ -10,7 +10,7 @@ public class Redactor {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         String tableName = "savepeople";
-        JDBCconnetion jdbCconnetion = new JDBCconnetion();
+        JDBConnection jdbConnection = new JDBConnection();
         ColorPrint.cpMag.println("--------------------------BEGIN---------------------------");
 
         // читаем Excel файл CoV.xlsx
@@ -21,7 +21,6 @@ public class Redactor {
 //        // корректировка даты результата
 //        List<String> findPerson = new ArrayList<>();
 //        findPerson.add("KONKOVA GUZEL");
-//        findPerson.add("KONKOV ANATOLII");
 //        String dateNew = "04.10.2021";
 //        List<Person> persons = jdbCconnetion.findPeople(findPerson, dateNew);
 //        for (Person per : persons) {
@@ -31,7 +30,7 @@ public class Redactor {
 
         for (Person person : persons) {
             ColorPrint.cpGreen.println(person.toString());
-            jdbCconnetion.appendPeople(person, tableName);
+            jdbConnection.appendPeople(person, tableName);
         }
         System.out.println(persons.size() + " кол-во персон на исследование");
 
@@ -56,8 +55,6 @@ public class Redactor {
         // Вызываем метод заполнения в форму и пишем в файл
         projectFileWriter.excelFileWrite();
         ColorPrint.cpMag.println("------------------------END-----------------------------");
-
-
 
 
 //        ColorPrint.cpRed.println("----------------DELETE---------------");

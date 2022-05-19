@@ -8,7 +8,7 @@ public class Study {
     private int numberReport;
     private int numberProduction;
     private String dateResultString;
-    private String timeSampling = "10:00";
+    private String timeSampling = "8:00";
     private String timeResult;
 
 
@@ -29,13 +29,13 @@ public class Study {
     public String getTimeResult () {
         // Время выдачи результата - заглушка
         switch (numberProduction)  {
-            case 1 : timeResult = "15:10";
+            case 1 : timeResult = "11:00";
                 break;
-            case 2 : timeResult = "15:30";
+            case 2 : timeResult = "12:00";
                 break;
-            case 3 : timeResult = "16:20";
+            case 3 : timeResult = "13:30";
                 break;
-            default: timeResult = "16:40";
+            default: timeResult = "21:00";
                 break;
         }
         return timeResult;
