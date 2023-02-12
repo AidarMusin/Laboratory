@@ -105,9 +105,9 @@ public class ProjectFileWriter {
                     rowList.get(9).getCell(columnNumber ).setCellValue("COVID-19 PCR testing results");
                     rowList.get(10).getCell(columnNumber ).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
                     rowList.get(11).getCell(columnNumber ).setCellValue(persons.get(i).getProductionNumber());
-                    rowList.get(12).getCell(columnNumber).setCellValue("Date and time of biomaterial sampling:");
+                    rowList.get(12).getCell(columnNumber).setCellValue("Date of biomaterial sampling:");
                     rowList.get(13).getCell(columnNumber).setCellValue(persons.get(i).getSamplingDateTime());
-                    rowList.get(14).getCell(columnNumber).setCellValue("Result ready date and time:");
+                    rowList.get(14).getCell(columnNumber).setCellValue("Result ready date:");
                     rowList.get(15).getCell(columnNumber).setCellValue(persons.get(i).getResultReadyDateTime());
                     rowList.get(17).getCell(columnNumber ).setCellValue("Signature:");
                     i++;
@@ -126,9 +126,9 @@ public class ProjectFileWriter {
                     rowList.get(29).getCell(columnNumber ).setCellValue("COVID-19 PCR testing results");
                     rowList.get(30).getCell(columnNumber ).setCellValue("SARS-CoV2 RNA – NOT DETECTED");
                     rowList.get(31).getCell(columnNumber ).setCellValue(persons.get(i).getProductionNumber());
-                    rowList.get(32).getCell(columnNumber).setCellValue("Date and time of biomaterial sampling:");
+                    rowList.get(32).getCell(columnNumber).setCellValue("Date of biomaterial sampling:");
                     rowList.get(33).getCell(columnNumber).setCellValue(persons.get(i).getSamplingDateTime());
-                    rowList.get(34).getCell(columnNumber).setCellValue("Result ready date and time:");
+                    rowList.get(34).getCell(columnNumber).setCellValue("Result ready date:");
                     rowList.get(35).getCell(columnNumber).setCellValue(persons.get(i).getResultReadyDateTime());
                     rowList.get(37).getCell(columnNumber ).setCellValue("Signature:");
                     columnNumber = columnNumber + 5;
@@ -139,7 +139,7 @@ public class ProjectFileWriter {
             }
             fileInputStream.close();
 
-            FileOutputStream fos = new FileOutputStream(fileNameWriteExcel);
+                    FileOutputStream fos = new FileOutputStream(fileNameWriteExcel);
             workbook.write(fos);
             fos.close();
         } catch (FileNotFoundException fne) {

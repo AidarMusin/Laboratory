@@ -91,7 +91,7 @@ public class ProjectFileReader {
                 if (!(dateResultSplit[0].equals("00") && !(dateResultSplit[1].equals("00")))) {
                     testDateResult = dateResultSplit[0] + "." + dateResultSplit[1] + "." + dateResultSplit[2];
                 }
-                boolean test = testDateResult.matches("^[0-3][0-9]\\.[0-1][0-9]\\.202[1-2]$");
+                boolean test = testDateResult.matches("^[0-3][0-9]\\.[0-1][0-9]\\.202[1-3]$");
                 if (test) {
                     dateResult = testDateResult;
                 } else {
