@@ -46,9 +46,9 @@ public class Study {
         return diagnosis +
                 method +
                 "No." + numberReport + " production No." + numberProduction +
-                "\nDate and time of biomaterial sampling:\n" +
+                "\nDate of biomaterial sampling:\n" +
                 getDateTimeSamplingString()  +
-                "\nResult ready date and time:\n" +
+                "\nResult ready date:\n" +
                 getDateTimeResultString();
     }
 
@@ -61,11 +61,11 @@ public class Study {
     }
 
     public String getDateTimeResultString() {
-        return dateResultString + " " + getTimeResult();
+        return dateResultString; // + " " + getTimeResult();
     }
 
     public String getDateTimeSamplingString() {
-        return dateResultString + " " + timeSampling;
+        return dateResultString; //+ " " + timeSampling;
     }
 
 }
